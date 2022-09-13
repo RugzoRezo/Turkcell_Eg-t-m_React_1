@@ -6,12 +6,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './Login';
 import Dashboard from './Dashboard';
 import ErrorPage from './ErrorPage';
+import Profile from './Profile';
+import Settings from './Settings';
 
 const routes =
 <BrowserRouter>
   <Routes>
     <Route path='/' element={<Login/>} />
     <Route path='/dashboard' element={<Dashboard />} />
+    <Route path='/profile' element={<Profile />} />
+    <Route path='/settings' element={<Settings />} />
     <Route path='*' element={<ErrorPage />} />
   </Routes>
 </BrowserRouter>

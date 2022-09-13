@@ -2,13 +2,13 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import Navbar from './components/Navbar'
 
-function Dashboard() {
+function Profile() {
   return (
     <>
-        <Navbar/>
-        <div>Dashboard</div>
+        <Navbar title='Profile' color='#072af0'/>
+        <div>Profile</div>
     </>
   )
 }
 
-export default Dashboard
+export default Profile
