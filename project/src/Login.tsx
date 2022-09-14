@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { URLEnum } from './RouterEnum'
 import { userLoginService } from './service'
+import { encrypt } from './util'
 
 function Login() {
 
@@ -14,11 +16,15 @@ function Login() {
         evt.preventDefault()
         userLoginService(email, password).then( res => {
             const user = res.data.user[0]
-            if ( user.durum === true ) {
-
+            if ( user.durum === true && user.bilgiler ) {
+                const stBilgiler = JSON.stringify( user.bilgiler )
+                sessionStorage.setItem('user', encrypt(stBilgiler))
+                navigate(URLEnum.PRODUCT)
             }else {
                 setError( user.mesaj )
             }
+        }).catch( error => {
+            setError( error.message )
         })
     }
 
