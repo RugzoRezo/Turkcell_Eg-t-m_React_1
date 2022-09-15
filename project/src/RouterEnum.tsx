@@ -1,4 +1,5 @@
 export enum URLEnum {
     HOME='/',
-    PRODUCT='/product'
+    PRODUCT='/product',
+    NOTE='/note',
 } 

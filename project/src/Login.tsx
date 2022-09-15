@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { URLEnum } from './RouterEnum'
 import { userLoginService } from './service'
 import { encrypt } from './util'
 
 function Login() {
+
+    useEffect(() => {
+      console.log(navigator.userAgent);
+    }, [])
+    
 
     const navigate = useNavigate()
 
@@ -19,6 +24,9 @@ function Login() {
             if ( user.durum === true && user.bilgiler ) {
                 const stBilgiler = JSON.stringify( user.bilgiler )
                 sessionStorage.setItem('user', encrypt(stBilgiler))
+                if ( remember ) {
+                    localStorage.setItem('user', encrypt(stBilgiler) )
+                }
                 navigate(URLEnum.PRODUCT)
             }else {
                 setError( user.mesaj )

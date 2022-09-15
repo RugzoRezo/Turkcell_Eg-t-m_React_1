@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
+import NavBar from './components/NavBar'
 import { URLEnum } from './RouterEnum'
 import { control } from './util'
 
@@ -12,7 +13,7 @@ function Security( item: { component: JSX.Element } ) {
     ?
     <Navigate to={URLEnum.HOME} />
     :
-    <><h1>{userObj.userName} { userObj.userSurname }</h1> { item.component } </>
+    <><NavBar userObj={userObj} /> { item.component } </>
   )
 
 }

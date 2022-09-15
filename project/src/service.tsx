@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IProduct } from "./models/IProduct";
 import { IUserLogin } from "./models/IUserLogin";
 const baseUrl = process.env.REACT_APP_BASE_URL
 
@@ -18,4 +19,12 @@ export const userLoginService = ( email: string, password: string ) => {
         face: 'no'
     }
     return config.get<IUserLogin>('userLogin.php', { params: sendParams })
+}
+
+// product List
+export const productList = () => {
+   const sendParams = {
+    start: 0
+   } 
+   return  config.get<IProduct>('product.php', { params: sendParams })
 }
