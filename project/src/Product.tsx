@@ -8,6 +8,7 @@ function Product() {
   
   const [item, setItem] = useState<ProBilgiler>()
   const [proArr, setProArr] = useState<ProBilgiler[]>([])
+  const [bigImage, setBigImage] = useState('')
   useEffect(() => {
     productList().then( res => {
       setProArr( res.data.Products[0].bilgiler )
@@ -26,7 +27,7 @@ function Product() {
             <div className="card-body">
               <h5 className="card-title"> { item.productName } </h5>
               <p className="card-text">{ item.brief }</p>
-              <a onClick={()=> setItem(item) } data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-primary">Goto Detail</a>
+              <a onClick={()=> { setItem(item); setBigImage( item.images[0].normal ) } } data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-primary">Goto Detail</a>
             </div>
           </div>
         )}
@@ -41,7 +42,13 @@ function Product() {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <img src={item.images[0].normal} className='img-fluid' />
+                <img src={ bigImage } className='img-fluid' />
+                <div className='mt-3 mb-3'>
+                  { item.images.map( (itm, index) => 
+                    <img onClick={() => setBigImage(itm.normal) } role='button' key={index} src={itm.thumb} className='img-thumbnail m-1' />
+                  )}
+                </div>
+                <div dangerouslySetInnerHTML={{__html: item.description }}></div>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
