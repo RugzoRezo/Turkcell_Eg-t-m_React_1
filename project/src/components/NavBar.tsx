@@ -22,10 +22,13 @@ function NavBar( item: { userObj:Bilgiler } ) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-            <NavLink className="nav-link" to='/product'>Product</NavLink>
+            <NavLink className="nav-link" to={URLEnum.PRODUCT}>Product</NavLink>
             </li>
             <li className="nav-item">
-            <NavLink className="nav-link" to='/note'>Note</NavLink>
+            <NavLink className="nav-link" to={URLEnum.NOTE}>Note</NavLink>
+            </li>
+            <li className="nav-item">
+            <NavLink className="nav-link" to={URLEnum.TODO}>Todo</NavLink>
             </li>
             <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
