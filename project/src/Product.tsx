@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import { ProBilgiler } from './models/IProduct'
 import { URLEnum } from './RouterEnum'
@@ -19,6 +20,11 @@ function Product() {
 
   return (
     <>
+      <Helmet>
+          <title>Product</title>
+          <meta name="description" content="Product Page"></meta>
+          <link rel="icon" href="https://n11scdn.akamaized.net/static/favicon.ico" />
+      </Helmet>
       <h2>Product List</h2>
       <div className='row'>
         { proArr.map( (item, index) => 

@@ -1,5 +1,6 @@
 import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 import { Todo } from './models/ITodo'
@@ -50,6 +51,10 @@ function TodoPage() {
   
     return (
       <>
+      <Helmet>
+          <title>Todo</title>
+          <meta name="description" content="Todo Page"></meta>
+      </Helmet>
         <div className='row'>
           <div className='col-sm-6'>
             <h2>Todo Add</h2>

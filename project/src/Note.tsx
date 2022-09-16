@@ -1,5 +1,6 @@
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet';
 import * as Yup from 'yup'
 
 
@@ -42,6 +43,10 @@ function Note() {
 
   return (
     <>
+      <Helmet>
+          <title>Note</title>
+          <meta name="description" content="Note Page"></meta>
+      </Helmet>
       <div className='row'>
         <div className='col-sm-6'>
           <h2>Note Add</h2>
