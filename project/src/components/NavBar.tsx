@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { OrderList } from '../models/IOrder'
 import { Bilgiler } from '../models/IUserLogin'
 import { URLEnum } from '../RouterEnum'
+import { listOrder } from '../service'
+import { OrderEnum } from '../useRedux/OrderEnum'
+import { IOrderAction } from '../useRedux/OrderReducer'
+import { StateType } from '../useRedux/StoreRedux'
 
 function NavBar( item: { userObj:Bilgiler } ) {
 
@@ -11,6 +17,20 @@ function NavBar( item: { userObj:Bilgiler } ) {
     sessionStorage.removeItem('user')
     navigate(URLEnum.HOME)
   }
+
+  const dispatch = useDispatch()
+  const selector = useSelector( (state: StateType) => state.OrderReducer )
+
+  useEffect(() => {
+    listOrder().then( res => {
+      const sendItem: IOrderAction = {
+        type: OrderEnum.ADD_ORDER,
+        payload: res.data.orderList[0]
+      }
+      dispatch(sendItem)
+  } )
+  }, [])
+  
 
   return (
     <nav className="navbar navbar-expand-lg bg-light">
@@ -42,7 +62,7 @@ function NavBar( item: { userObj:Bilgiler } ) {
             </ul>
             </li>
             <li className="nav-item">
-            <a className="nav-link disabled"> { item.userObj.userName } { item.userObj.userSurname } </a>
+            <a className="nav-link disabled"> { item.userObj.userName } { item.userObj.userSurname } - ( {selector.length} ) </a>
             </li>
         </ul>
         <form className="d-flex" role="search">

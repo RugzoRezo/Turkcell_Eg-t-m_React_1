@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ProBilgiler } from './models/IProduct'
 import { URLEnum } from './RouterEnum'
-import { addOrder, productList } from './service'
+import { addOrder, listOrder, productList } from './service'
+import { OrderEnum } from './useRedux/OrderEnum'
+import { IOrderAction } from './useRedux/OrderReducer'
+import { StateType } from './useRedux/StoreRedux'
 
 function Product() {
+
+  const dispatch = useDispatch()
+  const selector = useSelector( (state: StateType) => state.OrderReducer )
   
   const [item, setItem] = useState<ProBilgiler>()
   const [proArr, setProArr] = useState<ProBilgiler[]>([])
@@ -18,11 +25,20 @@ function Product() {
   }, [])
 
   const fncAddOrder = ( productID:string ) => {
-    addOrder(productID).then( res => {
-      console.log(res.data)
+    addOrder(productID).then( resl => {
+      listOrder().then( res => {
+        const sendItem: IOrderAction = {
+          type: OrderEnum.ADD_ORDER,
+          payload: res.data.orderList[0]
+        }
+        dispatch(sendItem)
+    } )
     })
   }
   
+
+
+
 
   return (
     <>

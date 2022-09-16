@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IOrder } from "./models/IOrder";
 import { IProduct } from "./models/IProduct";
 import { ITodo, Todo } from "./models/ITodo";
 import { IUserLogin } from "./models/IUserLogin";
@@ -48,6 +49,15 @@ export const addOrder = (productId: string) => {
     return config.get('orderForm.php', { params: sendParams })
 }
 
+
+// list order
+export const listOrder = () => {
+    const sendParams = {
+        musterilerID: control()?.userId,
+        random: Math.random()
+    }
+    return config.get<IOrder>('orderList.php', { params: sendParams })
+}
 
 //  Get todos
 export const getTodos = () => {
