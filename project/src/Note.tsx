@@ -1,7 +1,9 @@
+import axios from 'axios';
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup'
+import { IWeather } from './models/IWeather';
 
 
 interface INote {
@@ -41,8 +43,27 @@ function Note() {
     setNotes( oldArr )
   }
 
+  const [weather, setWeather] = useState<IWeather>()
+  useEffect(() => {
+    fncWeather('istanbul')
+  }, [])
+
+  const fncWeather = ( city: string ) => {
+    const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&units=imperial&appid=a38468f90414deaf5d8d9c742c7fb8d2'
+    axios.get<IWeather>(url).then(res => {
+      setWeather(res.data)
+    })
+  }
+  
+
   return (
     <>
+    { weather &&
+      <h3> { weather.name } - { weather.weather[0].main } </h3>
+    }
+    <div>
+      <input onChange={(evt) => fncWeather(evt.target.value) } className='form-control'></input>
+    </div>
       <Helmet>
           <title>Note</title>
           <meta name="description" content="Note Page"></meta>

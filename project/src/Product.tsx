@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import { ProBilgiler } from './models/IProduct'
 import { URLEnum } from './RouterEnum'
-import { productList } from './service'
+import { addOrder, productList } from './service'
 
 function Product() {
   
@@ -16,6 +16,12 @@ function Product() {
       setItem( res.data.Products[0].bilgiler[0] )
     })
   }, [])
+
+  const fncAddOrder = ( productID:string ) => {
+    addOrder(productID).then( res => {
+      console.log(res.data)
+    })
+  }
   
 
   return (
@@ -58,7 +64,7 @@ function Product() {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
+                <button onClick={() => fncAddOrder(item.productId)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Add Basket</button>
               </div>
             </div>
           </div>

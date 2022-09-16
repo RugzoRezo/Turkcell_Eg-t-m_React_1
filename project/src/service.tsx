@@ -2,6 +2,7 @@ import axios from "axios";
 import { IProduct } from "./models/IProduct";
 import { ITodo, Todo } from "./models/ITodo";
 import { IUserLogin } from "./models/IUserLogin";
+import { control } from "./util";
 const baseUrl = process.env.REACT_APP_BASE_URL
 const dummyJsonBaseUrl = process.env.REACT_APP_JSON_BASE_URL
 
@@ -36,6 +37,17 @@ export const productList = () => {
    } 
    return  config.get<IProduct>('product.php', { params: sendParams })
 }
+
+// add order
+export const addOrder = (productId: string) => {
+    const sendParams = {
+        customerId: control()?.userId,
+        productId: productId,
+        html: productId
+    }
+    return config.get('orderForm.php', { params: sendParams })
+}
+
 
 //  Get todos
 export const getTodos = () => {
